@@ -1,0 +1,542 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --paper: #f3f0e8;
+    --ink: #20231f;
+    --muted: #6f746c;
+
+    --calculator: #d9d8ce;
+    --calculator-dark: #bfc0b7;
+
+    --button: #ecebe3;
+    --button-dark: #c8c8bf;
+
+    --screen: #cdd2c7;
+
+    --special: #c8d2cb;
+    --operator: #b8beb8;
+
+    --shadow: rgba(35, 38, 34, 0.22);
+}
+
+
+/* =========================
+   CUERPO
+========================= */
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,0.8),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #eeeae0,
+            var(--paper)
+        );
+
+    color: var(--ink);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Textura tipo papel */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.15;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 3px,
+            rgba(30,30,30,0.06) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 4px,
+            rgba(30,30,30,0.035) 5px
+        );
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.page {
+    width: 100%;
+    max-width: 760px;
+
+    padding:
+        45px
+        20px
+        60px;
+}
+
+
+/* =========================
+   TITULO
+========================= */
+
+.page-header {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: -2px;
+
+    line-height: 1;
+}
+
+.page-header h1::after {
+    content: "";
+
+    display: block;
+
+    width: 65%;
+
+    height: 2px;
+
+    background: var(--ink);
+
+    margin:
+        12px
+        auto
+        0;
+
+    transform: rotate(-1deg);
+}
+
+.page-header p {
+    margin-top: 12px;
+
+    color: var(--muted);
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================
+   CALCULADORA
+========================= */
+
+.calculator {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    margin: auto;
+
+    padding:
+        28px
+        25px
+        20px;
+
+    border:
+        2px solid
+        #343731;
+
+    border-radius: 34px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e4e3d9,
+            var(--calculator)
+        );
+
+    box-shadow:
+
+        0 22px 30px
+        var(--shadow),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.75),
+
+        inset 0 -4px 0
+        rgba(0,0,0,0.08);
+}
+
+
+/* =========================
+   PANTALLA
+========================= */
+
+.display-container {
+    margin-bottom: 18px;
+}
+
+.display-label {
+    display: block;
+
+    margin-left: 7px;
+    margin-bottom: 6px;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 2px;
+
+    color: var(--muted);
+}
+
+.display {
+
+    min-height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    padding:
+        14px
+        18px;
+
+    overflow: hidden;
+
+    border:
+        5px solid
+        #8e9389;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            160deg,
+            rgba(255,255,255,0.3),
+            transparent
+        ),
+        var(--screen);
+
+    box-shadow:
+
+        inset 0 3px 8px
+        rgba(0,0,0,0.2),
+
+        0 1px 0
+        rgba(255,255,255,0.7);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 2.5rem;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   TECLADO
+========================= */
+
+.keypad {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.key {
+
+    min-height: 55px;
+
+    border:
+        1px solid
+        #8f9189;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5f4ee,
+            var(--button)
+        );
+
+    color: var(--ink);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 1rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 4px 0
+        var(--button-dark),
+
+        0 6px 9px
+        rgba(0,0,0,0.09);
+
+    transition:
+        transform 0.08s,
+        box-shadow 0.08s;
+}
+
+
+/* Hover */
+
+.key:hover {
+
+    filter: brightness(1.04);
+}
+
+
+/* Cuando se presiona */
+
+.key:active {
+
+    transform:
+        translateY(4px);
+
+    box-shadow:
+
+        0 0 0
+        var(--button-dark),
+
+        0 2px 4px
+        rgba(0,0,0,0.12);
+}
+
+
+/* =========================
+   TIPOS DE BOTONES
+========================= */
+
+.function {
+
+    background:
+        linear-gradient(
+            145deg,
+            #f4f3ed,
+            #dfdfd7
+        );
+}
+
+
+.memory {
+
+    background:
+        linear-gradient(
+            145deg,
+            #e6e7df,
+            #d2d3ca
+        );
+
+    font-size: 0.85rem;
+}
+
+
+.special {
+
+    background:
+        linear-gradient(
+            145deg,
+            #d8e0da,
+            var(--special)
+        );
+
+    font-size: 1.2rem;
+}
+
+
+.operator {
+
+    background:
+        linear-gradient(
+            145deg,
+            #c9cec7,
+            var(--operator)
+        );
+
+    font-size: 1.3rem;
+}
+
+
+.equals {
+
+    background:
+        linear-gradient(
+            145deg,
+            #c9cec7,
+            #aeb5ae
+        );
+
+    font-size: 1.4rem;
+}
+
+
+/* =========================
+   PARTE INFERIOR
+========================= */
+
+.calculator-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 17px;
+
+    padding: 0 4px;
+
+    color: var(--muted);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 1px;
+}
+
+
+.clear {
+
+    border:
+        1px solid
+        #858980;
+
+    border-radius: 8px;
+
+    padding:
+        7px
+        12px;
+
+    background: #e1e0d7;
+
+    color: var(--ink);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 560px) {
+
+    .page {
+
+        padding:
+            25px
+            10px
+            35px;
+    }
+
+
+    .page-header h1 {
+
+        font-size: 2rem;
+    }
+
+
+    .calculator {
+
+        padding:
+            20px
+            15px
+            15px;
+
+        border-radius: 25px;
+    }
+
+
+    .keypad {
+
+        gap: 7px;
+    }
+
+
+    .key {
+
+        min-height: 48px;
+
+        border-radius: 8px;
+
+        font-size: 0.85rem;
+    }
+
+
+    .memory {
+
+        font-size: 0.7rem;
+    }
+
+
+    .display {
+
+        min-height: 75px;
+
+        font-size: 1.8rem;
+    }
+
+
+    .calculator-footer span {
+
+        display: none;
+    }
+
+
+    .calculator-footer {
+
+        justify-content: flex-end;
+    }
+}
